@@ -8,7 +8,8 @@ body {
     align-items: start;
     background-image: url('assets/background.jpg');
     background-size: cover;
-    background-position: center; 
+    background-position: center;
+    overflow: hidden;
     position: fixed;
     touch-action: pan-x pan-y;
 }
@@ -24,7 +25,8 @@ body {
     z-index: 1000;
 }
 
-html { 
+html {
+    overflow: hidden;
     height: 100%;
     touch-action: manipulation; 
 }
@@ -109,30 +111,23 @@ html {
 }
 
 .ikea-colors {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(60px, 1fr));
+    grid-template-rows: repeat(2, minmax(60px, 1fr));
+    gap: 5vw;
+    margin-top: 5vh; 
     justify-content: center;
     align-items: center;
-    gap: 5vw;
-    margin-top: 5vh;
     width: 100%;
     max-width: 70%;
 }
 
 .color-box {
-    width: calc(50% - 2.5vw);
-    height: auto;
+    width: 100%;
     aspect-ratio: 1 / 1;
     border-radius: 35px;
     background-color: #0058A3;
     position: relative;
-    flex-shrink: 0;
-}
-
-@supports (-webkit-touch-callout: none) {
-    .ikea-colors {
-        min-height: -webkit-fill-available;
-    }
 }
 
 @keyframes bounce {
@@ -187,7 +182,6 @@ html {
     position: relative;
     letter-spacing: 1.5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
     padding: 2vh 4vw;
 }
 
@@ -358,64 +352,35 @@ html {
         font-size: clamp(16px, 4vw, 36px);
     }
 }
-/* Загальні покращення для Apple */
-body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; 
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
 
-/* Покращення для backdrop-filter */
-#win-panel-container {
+
+/* Додаємо коректний блюр */
+#win-panel-container.active {
     backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.2);
-    transition: backdrop-filter 0.5s ease-in-out, background 0.5s ease-in-out;
+    background: rgba(0, 0, 0, 0.6);
 }
 
-/* Коригування для iOS, щоб уникнути проблем зі скролінгом */
-html, body {
-    height: 100%;
-    overflow-x: hidden; /* Прибирає горизонтальний скрол */
-    overflow-y: auto;
-    width: 100%; 
-    position: relative;
+/* Оновлюємо Win Panel, щоб вона була більшою і коректно відображала об'єкт */
+.win-panel {
+    width: 50vw;
+    max-width: 450px;
 }
 
-.thermometer {
-    will-change: transform;
+/* Виправляємо відображення найбільшої замерженої картинки */
+.win-item {
+    width: 90%;
+    max-width: 250px;
+    display: block;
+    margin: 10px auto;
 }
 
-.battery-icon, .mega-battery {
-    image-rendering: -webkit-optimize-contrast;
+/* Оновлення для монетного вибуху */
+#coins-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 3000;
 }
-
-/* Оптимізація touch-елементів */
-.ikea-close-btn {
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Retina-дисплеї */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .color-box {
-        background-size: contain;
-    }
-}
-
-/* Фікс для 100vh у мобільних Safari */
-@supports (-webkit-touch-callout: none) {
-    body {
-        min-height: -webkit-fill-available;
-    }
-}
-
-/* Додатковий фікс для `position: fixed` в iOS */
-@media (max-width: 768px) {
-    .win-panel {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-
