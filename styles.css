@@ -8,8 +8,7 @@ body {
     align-items: start;
     background-image: url('assets/background.jpg');
     background-size: cover;
-    background-position: center;
-    overflow: hidden;
+    background-position: center; 
     position: fixed;
     touch-action: pan-x pan-y;
 }
@@ -25,8 +24,7 @@ body {
     z-index: 1000;
 }
 
-html {
-    overflow: hidden;
+html { 
     height: 100%;
     touch-action: manipulation; 
 }
@@ -111,23 +109,30 @@ html {
 }
 
 .ikea-colors {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(60px, 1fr));
-    grid-template-rows: repeat(2, minmax(60px, 1fr));
-    gap: 5vw;
-    margin-top: 5vh; 
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 5vw;
+    margin-top: 5vh;
     width: 100%;
     max-width: 70%;
 }
 
 .color-box {
-    width: 100%;
+    width: calc(50% - 2.5vw);
+    height: auto;
     aspect-ratio: 1 / 1;
     border-radius: 35px;
     background-color: #0058A3;
     position: relative;
+    flex-shrink: 0;
+}
+
+@supports (-webkit-touch-callout: none) {
+    .ikea-colors {
+        min-height: -webkit-fill-available;
+    }
 }
 
 @keyframes bounce {
@@ -356,8 +361,7 @@ html {
 /* Загальні покращення для Apple */
 body {
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    -moz-osx-font-smoothing: grayscale; 
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -372,8 +376,9 @@ body {
 /* Коригування для iOS, щоб уникнути проблем зі скролінгом */
 html, body {
     height: 100%;
-    width: 100%;
-    overflow: hidden;
+    overflow-x: hidden; /* Прибирає горизонтальний скрол */
+    overflow-y: auto;
+    width: 100%; 
     position: relative;
 }
 
