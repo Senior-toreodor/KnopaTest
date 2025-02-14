@@ -1,0 +1,354 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    justify-items: center;
+    align-items: start;
+    background-image: url('assets/background.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    position: fixed;
+    touch-action: pan-x pan-y;
+}
+
+#win-panel-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    backdrop-filter: blur(0px);
+    transition: backdrop-filter 1s ease-in-out;
+    z-index: 1000;
+}
+
+html {
+    overflow: hidden;
+    height: 100%;
+    touch-action: manipulation; 
+}
+
+.title-container {
+    width: 80%;
+    max-width: 240px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-container img {
+    width: 100%;
+    height: auto;
+}
+
+.thermometer-container {
+    width: 80%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    position: relative;
+}
+
+.thermometer {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    overflow: visible;
+    background: lightgray;
+    transition: width 0.3s ease-in-out;
+    align-items: center;
+    position: relative;
+}
+
+.section {
+    flex: 1;
+    height: 100%;
+    background: #F55536;
+}
+
+.section:first-child {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.section:last-child {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.battery-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 0px;
+    height: 100%;
+    position: relative;
+    overflow: visible;
+}
+
+.battery-icon {
+    width: 90px;
+    height: auto;
+    margin-left: -20px;
+    position: relative;
+    z-index: 10;
+}
+
+.mega-battery {
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 110px;
+    height: auto;
+    z-index: 10;
+}
+
+.ikea-colors {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(60px, 1fr));
+    grid-template-rows: repeat(2, minmax(60px, 1fr));
+    gap: 5vw;
+    margin-top: 5vh; 
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 70%;
+}
+
+.color-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 35px;
+    background-color: #0058A3;
+    position: relative;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+    50% {
+        transform: translate(-50%, -50%) translateY(-5px);
+    }
+}
+
+.chair-image {
+    width: 80%;
+    height: auto;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: bounce 0.8s infinite ease-in-out;
+    transition: transform 0.3s ease-in-out;
+}
+
+.section {
+    flex: 1;
+    height: 100%;
+    background: #447604;
+    transition: background 0.3s ease-in-out;
+}
+
+.section.active {
+    background: #F55536;
+}
+
+.ikea-close-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5vh;
+    width: min(25vw, 200px);
+    height: min(12vh, 90px);
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(180deg, #ffcc00 0%, #e6b800 100%);
+    color: #0058A3;
+    font-size: clamp(18px, 4vw, 32px);
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0px 6px 15px rgba(0, 88, 163, 0.4);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 2vh 4vw;
+}
+
+.ikea-close-btn:hover {
+    background: linear-gradient(180deg, #ffd633 0%, #ffcc00 100%);
+    transform: scale(1.05);
+    box-shadow: 0px 8px 20px rgba(0, 88, 163, 0.5);
+}
+
+.ikea-close-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0px 3px 10px rgba(0, 88, 163, 0.3);
+}
+
+.win-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    max-width: 320px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px 20px 20px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    background-color: #0058A3;
+    color: #ffcc00;
+    z-index: 1001;
+}
+
+#coins-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 2000;
+}
+
+.coin {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease-in-out;
+}
+
+.win-panel:hover { 
+    box-shadow: 0px 12px 35px rgba(255, 204, 0, 0.6);  
+} 
+ 
+.win-banner {
+    width: 80%;
+    max-width: 200px;
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.3));
+}
+ 
+.win-item {
+    width: 70%;
+    max-width: 180px;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    margin-top: 10px;
+}
+
+.win-item:hover {
+    transform: scale(1.1);
+}
+ 
+.win-text {
+    font-family: Arial, sans-serif; 
+    font-size: clamp(14px, 4vw, 32px);
+    font-weight: bold;
+    color: #ffcc00;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+ 
+.blur-background::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+}
+
+@media screen and (min-width: 1100px) {
+    body, html {
+        overflow: auto;  
+        position: relative;  
+        min-height: 100vh;
+    }
+
+    body {
+        font-size: 18px;
+    }
+
+    .title-container {
+        max-width: 400px;
+    }
+
+    .thermometer-container {
+        max-width: 600px;
+        margin-top: 20px;
+    }
+
+    .thermometer {
+        height: 40px;
+    }
+
+    .battery-icon {
+        width: 120px;
+        margin-left: -30px;
+    }
+
+    .mega-battery {
+        width: 140px;
+        right: -70px;
+    }
+
+    .ikea-colors {
+        grid-template-columns: repeat(2, minmax(80px, 1fr));
+        grid-template-rows: repeat(2, minmax(80px, 1fr));
+        gap: 3vw;
+        width: 30%;
+    }
+
+    .color-box {
+        border-radius: 50px;
+    }
+
+    .ikea-close-btn {
+        margin-top: 5vh;
+        width: min(20vw, 250px);
+        height: min(10vh, 100px);
+        font-size: clamp(22px, 5vw, 36px);
+    }
+
+    .win-panel {
+        width: 30vw;
+        max-width: 400px;
+        padding: 50px 30px 30px;
+    }
+
+    .win-banner {
+        max-width: 250px;
+        top: -40%;
+    }
+
+    .win-item {
+        max-width: 220px;
+    }
+
+    .win-text {
+        font-size: clamp(16px, 4vw, 36px);
+    }
+}
