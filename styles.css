@@ -182,6 +182,7 @@ html {
     position: relative;
     letter-spacing: 1.5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
     padding: 2vh 4vw;
 }
 
@@ -352,3 +353,64 @@ html {
         font-size: clamp(16px, 4vw, 36px);
     }
 }
+/* Загальні покращення для Apple */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Покращення для backdrop-filter */
+#win-panel-container {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+    transition: backdrop-filter 0.5s ease-in-out, background 0.5s ease-in-out;
+}
+
+/* Коригування для iOS, щоб уникнути проблем зі скролінгом */
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.thermometer {
+    will-change: transform;
+}
+
+.battery-icon, .mega-battery {
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* Оптимізація touch-елементів */
+.ikea-close-btn {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Retina-дисплеї */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .color-box {
+        background-size: contain;
+    }
+}
+
+/* Фікс для 100vh у мобільних Safari */
+@supports (-webkit-touch-callout: none) {
+    body {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* Додатковий фікс для `position: fixed` в iOS */
+@media (max-width: 768px) {
+    .win-panel {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+

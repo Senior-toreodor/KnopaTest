@@ -182,10 +182,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     function explodeCoins() {
-        const numCoins = 100;
+        // Створюємо контейнер coins-container, якщо його ще немає
+        let coinsContainer = document.getElementById("coins-container");
+        if (!coinsContainer) {
+            coinsContainer = document.createElement("div");
+            coinsContainer.id = "coins-container";
+            document.body.appendChild(coinsContainer);
+        }
     
-        coinsContainer.innerHTML = "";  
+        coinsContainer.innerHTML = "";
         coinsContainer.style.display = "block";
+    
+        const numCoins = 100;
     
         for (let i = 0; i < numCoins; i++) {
             const coin = document.createElement("img");
@@ -193,15 +201,15 @@ document.addEventListener("DOMContentLoaded", () => {
             coin.classList.add("coin");
             coinsContainer.appendChild(coin);
     
-            const fromLeft = Math.random() > 0.5; 
-            const startX = fromLeft ? -100 : window.innerWidth + 100;  
-            const startY = Math.random() * window.innerHeight;  
-     
-            const angle = Math.random() * Math.PI - Math.PI / 2;  
+            const fromLeft = Math.random() > 0.5;
+            const startX = fromLeft ? -100 : window.innerWidth + 100;
+            const startY = Math.random() * window.innerHeight;
+    
+            const angle = Math.random() * Math.PI - Math.PI / 2;
             const distance = Math.random() * 500 + 200;
-            const targetX = Math.cos(angle) * distance * (fromLeft ? 1 : -1);  
+            const targetX = Math.cos(angle) * distance * (fromLeft ? 1 : -1);
             const targetY = Math.sin(angle) * distance;
-     
+    
             coin.style.left = `${startX}px`;
             coin.style.top = `${startY}px`;
     
@@ -217,52 +225,80 @@ document.addEventListener("DOMContentLoaded", () => {
                 coin.remove();
             }, 4000);
         }
+    
+        setTimeout(() => {
+            coinsContainer.style.display = "none";
+        }, 4000);
     }
+    
       
     
     function graduallyBlurBackground() {
         let blurAmount = 0;
         const maxBlur = 8;
+        const winPanelContainer = document.getElementById("win-panel-container");
+    
+        if (!winPanelContainer) { 
+            return;
+        }
+    
         const interval = setInterval(() => {
             blurAmount += 1;
             winPanelContainer.style.backdropFilter = `blur(${blurAmount}px)`;
-
+    
             if (blurAmount >= maxBlur) {
                 clearInterval(interval);
             }
-        }, 0);
+        }, 100);
     }
+    
 
     function showWinPanel(highestLevel) {
-    const winPanel = document.createElement("div");
-    winPanel.classList.add("win-panel");
- 
-    let mergedImageSrc = assets[highestLevel] || "assets/default.png"; 
-    let productLink = "#"; 
- 
-    if (mergedImageSrc.includes("chair")) {
-        productLink = "https://www.ikea.com/de/en/p/nordkisa-open-wardrobe-with-sliding-door-bamboo-00439468/";
-    } else if (mergedImageSrc.includes("table")) {
-        productLink = "https://www.ikea.com/de/de/p/ingo-tisch-kiefer-14630009/?utm_source=google&utm_medium=cpc&utm_campaign=DE_LC_A3_BEH_0_AO_0_de_Shopping_Brand_HFB08-Dining_0_Standard-LIA&utm_id=system:GOOGLE.campaignid:19450983060.adgroupid:145433948072.creative:643492294221.keyword:.matchtype:.placement:&gad_source=1&gclid=CjwKCAiA8Lu9BhA8EiwAag16bxAW_jbD_9ZkDJMUZ60y5w3Ya5hgm_WQKfrZuj90LRG0QqwRTDs37hoCWfYQAvD_BwE&gclsrc=aw.ds";
-    } else if (mergedImageSrc.includes("wardrobe")) {
-        productLink = "https://www.ikea.com/de/en/p/nordkisa-open-wardrobe-with-sliding-door-bamboo-00439468/";
+        let winPanelContainer = document.getElementById("win-panel-container");
+    
+        if (!winPanelContainer) {
+            winPanelContainer = document.createElement("div");
+            winPanelContainer.id = "win-panel-container";
+            document.body.appendChild(winPanelContainer);
+        }
+    
+        winPanelContainer.innerHTML = ""; // Очищаємо контейнер
+    
+        const winPanel = document.createElement("div");
+        winPanel.classList.add("win-panel");
+    
+        let mergedImageSrc = assets[highestLevel] || "assets/default.png";
+        let productLink = "#";
+    
+        if (mergedImageSrc.includes("chair")) {
+            productLink = "https://www.ikea.com/de/en/p/nordkisa-open-wardrobe-with-sliding-door-bamboo-00439468/";
+        } else if (mergedImageSrc.includes("table")) {
+            productLink = "https://www.ikea.com/de/de/p/ingo-tisch-kiefer-14630009/";
+        } else if (mergedImageSrc.includes("wardrobe")) {
+            productLink = "https://www.ikea.com/de/en/p/nordkisa-open-wardrobe-with-sliding-door-bamboo-00439468/";
+        }
+    
+        winPanel.innerHTML = `
+            <img src="assets/win.png" alt="Win" class="win-banner">
+            <img src="${mergedImageSrc}" alt="Merged Object" class="win-item">
+            <p class="win-text">Tap to claim your prize</p>
+        `;
+    
+        winPanel.querySelector(".win-item").addEventListener("click", (e) => {
+            e.stopPropagation();
+            window.open(productLink, "_blank");
+        });
+    
+        winPanelContainer.appendChild(winPanel);
+        winPanelContainer.style.display = "block";
+        winPanelContainer.style.opacity = "1";
+    
+        explodeCoins();
+        swipeDisabled = true;
+        graduallyBlurBackground(); // 🟢 Додаємо розмиття
     }
- 
-    winPanel.innerHTML = `
-        <img src="assets/win.png" alt="Win" class="win-banner">
-        <img src="${mergedImageSrc}" alt="Merged Object" class="win-item">
-        <p class="win-text">Tap to claim your prize</p>
-    `;
- 
-    winPanel.addEventListener("click", () => {
-        window.open(productLink, "_blank");
-    });
-
-    winPanelContainer.appendChild(winPanel);
-    explodeCoins();
-    swipeDisabled = true;
-    graduallyBlurBackground();
-}
+    
+    
     
 
     let startX = 0, startY = 0;
