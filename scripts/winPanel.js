@@ -1,6 +1,9 @@
 let lastMergedImage = "assets/chair.png"; // Початкове значення
 let lastMergedLink = "#"; // Початкове значення
 
+const winSound = new Audio("assets/Sounds/win.mp3"); // Додаємо звук перемоги
+winSound.volume = 0.8; // Встановлюємо гучність
+
 export function setLastMergedImage(imageSrc) {
     lastMergedImage = imageSrc;
 
@@ -100,6 +103,9 @@ export function showWinPanel() {
 
     winPanelContainer.appendChild(winPanel);
     winPanelContainer.classList.add('active');
+
+    // Відтворюємо звук перемоги
+    winSound.play();
 
     // Вибух монет працює без помилок
     explodeCoins();

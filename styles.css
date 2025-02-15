@@ -166,9 +166,10 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 1vh;
     margin-bottom: 5vh;
-    width: min(25vw, 200px);
-    height: min(12vh, 90px);
+    height: 8vh;
+    width: 15vh;
     border: none;
     border-radius: 15px;
     background: linear-gradient(180deg, #ffcc00 0%, #e6b800 100%);
@@ -183,6 +184,7 @@ html {
     letter-spacing: 1.5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     padding: 2vh 4vw;
+    text-decoration: none;
 }
 
 .ikea-close-btn:hover {
