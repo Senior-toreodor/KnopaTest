@@ -23,8 +23,13 @@ export function createImage(index, level) {
     img.src = assets[level];
     img.dataset.level = level;
     img.classList.add("chair-image");
+
     boxes[index].innerHTML = '';
     boxes[index].appendChild(img);
+
+    requestAnimationFrame(() => {
+        img.classList.add("visible"); // Додайте клас після рендеру
+    });
 }
 
 function getRandomIndexes(count, max) {
