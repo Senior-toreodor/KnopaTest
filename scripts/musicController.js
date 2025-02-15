@@ -9,31 +9,12 @@ const mergeSound = new Audio("assets/Sounds/merge.mp3");
 mergeSound.volume = 1;
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-let isAudioUnlocked = false;
 let isSoundEnabled = false;
 
-function unlockAudio() {
+export function toggleMusic() {
     if (audioContext.state === "suspended") {
         audioContext.resume();
     }
-    backgroundMusic.play().then(() => {
-        isAudioUnlocked = true;
-        isSoundEnabled = true;
-        updateMusicButton();
-        document.removeEventListener("touchstart", unlockAudio);
-        document.removeEventListener("click", unlockAudio);
-    }).catch(() => {
-        isAudioUnlocked = false;
-    });
-}
-
-export function enableMusicOnInteraction() {
-    document.addEventListener("touchstart", unlockAudio, { once: true });
-    document.addEventListener("click", unlockAudio, { once: true });
-}
-
-export function toggleMusic() {
-    if (!isAudioUnlocked) return;
     isSoundEnabled = !isSoundEnabled;
     isSoundEnabled ? backgroundMusic.play() : backgroundMusic.pause();
     updateMusicButton();
