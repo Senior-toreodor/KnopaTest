@@ -1,3 +1,5 @@
+import { disableSwipe } from './script.js';
+
 let lastMergedImage = "assets/chair.png"; // Початкове значення
 let lastMergedLink = "#"; // Початкове значення
 
@@ -27,7 +29,7 @@ export function explodeCoins() {
     }
 
     const numCoins = 100;
-    coinsContainer.innerHTML = "";  
+    coinsContainer.innerHTML = "";
     coinsContainer.style.display = "block";
 
     for (let i = 0; i < numCoins; i++) {
@@ -36,13 +38,13 @@ export function explodeCoins() {
         coin.classList.add("coin");
         coinsContainer.appendChild(coin);
 
-        const fromLeft = Math.random() > 0.5; 
-        const startX = fromLeft ? -100 : window.innerWidth + 100;  
-        const startY = Math.random() * window.innerHeight;  
- 
-        const angle = Math.random() * Math.PI - Math.PI / 2;  
+        const fromLeft = Math.random() > 0.5;
+        const startX = fromLeft ? -100 : window.innerWidth + 100;
+        const startY = Math.random() * window.innerHeight;
+
+        const angle = Math.random() * Math.PI - Math.PI / 2;
         const distance = Math.random() * 500 + 200;
-        const targetX = Math.cos(angle) * distance * (fromLeft ? 1 : -1);  
+        const targetX = Math.cos(angle) * distance * (fromLeft ? 1 : -1);
         const targetY = Math.sin(angle) * distance;
 
         coin.style.left = `${startX}px`;
@@ -103,13 +105,12 @@ export function showWinPanel() {
 
     winPanelContainer.appendChild(winPanel);
     winPanelContainer.classList.add('active');
-
-    // Відтворюємо звук перемоги
+ 
     winSound.play();
-
-    // Вибух монет працює без помилок
+ 
     explodeCoins();
+    
+    disableSwipe();  
 
-    swipeDisabled = true;
     graduallyBlurBackground();
 }

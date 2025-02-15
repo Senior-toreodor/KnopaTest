@@ -1,8 +1,13 @@
 import { spawnChairs } from './spawner.js';
-import { move } from './movement.js'; 
+import { move } from './movement.js';
 
-document.addEventListener("DOMContentLoaded", () => { 
-    let swipeDisabled = false;
+export let swipeDisabled = false;
+
+export function disableSwipe() {
+    swipeDisabled = true;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
     let startX = 0, startY = 0;
 
     // Фонова музика
