@@ -2,8 +2,8 @@ import { createImage, spawnNewChair } from "./spawner.js";
 import { updateThermometer } from "./thermometer.js";
 import { setLastMergedImage } from "./winPanel.js";
 
-const mergeSound = new Audio("assets/Sounds/merge.mp3"); // Шлях до звуку мерджа
-mergeSound.volume = 1; // Налаштування гучності
+const mergeSound = new Audio("assets/Sounds/merge.mp3");  
+mergeSound.volume = 1;  
 
 export function move(direction) {
     const boxes = document.querySelectorAll(".color-box");
@@ -16,7 +16,7 @@ export function move(direction) {
     else if (direction === "down") merged = moveDown(grid);
 
     if (merged) {
-        mergeSound.play(); // Відтворюємо звук при злитті
+        mergeSound.play(); 
     }
 
     updateGrid(grid, boxes);
@@ -46,8 +46,7 @@ function updateGrid(grid, boxes) {
     const assets = ["assets/chair.png", "assets/table.png", "assets/wardrobe.png"];
     setLastMergedImage(assets[Math.min(highestMergedLevel, assets.length - 1)]);
 }
-
-// Логіка руху (оновлена для перевірки мерджу)
+ 
 function moveLeft(grid) {
     let merged = false;
     for (let i = 0; i < 3; i++) {

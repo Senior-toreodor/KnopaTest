@@ -1,10 +1,10 @@
 import { disableSwipe } from './script.js';
 
-let lastMergedImage = "assets/chair.png"; // Початкове значення
-let lastMergedLink = "#"; // Початкове значення
+let lastMergedImage = "assets/chair.png";  
+let lastMergedLink = "#";  
 
-const winSound = new Audio("assets/Sounds/win.mp3"); // Додаємо звук перемоги
-winSound.volume = 0.8; // Встановлюємо гучність
+const winSound = new Audio("assets/Sounds/win.mp3");  
+winSound.volume = 0.8;  
 
 export function setLastMergedImage(imageSrc) {
     lastMergedImage = imageSrc;
@@ -62,21 +62,7 @@ export function explodeCoins() {
             coin.remove();
         }, 4000);
     }
-}
-
-export function graduallyBlurBackground() {
-    let blurAmount = 0;
-    const maxBlur = 8;
-    const interval = setInterval(() => {
-        blurAmount += 1;
-        document.body.style.filter = `blur(${blurAmount}px)`;
-        document.body.style.transition = "filter 0.5s ease-in-out";
-
-        if (blurAmount >= maxBlur) {
-            clearInterval(interval);
-        }
-    }, 50);
-}
+} 
 
 export function showWinPanel() {
     let winPanelContainer = document.getElementById("win-panel-container");
@@ -110,7 +96,5 @@ export function showWinPanel() {
  
     explodeCoins();
     
-    disableSwipe();  
-
-    graduallyBlurBackground();
+    disableSwipe();   
 }

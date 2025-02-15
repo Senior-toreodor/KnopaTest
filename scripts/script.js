@@ -9,21 +9,20 @@ export function disableSwipe() {
 
 document.addEventListener("DOMContentLoaded", () => {
     let startX = 0, startY = 0;
-
-    // Фонова музика
+ 
     const backgroundMusic = new Audio("assets/Sounds/background.mp3");
     backgroundMusic.loop = true;
     backgroundMusic.volume = 0.5;
-
-    // Додаємо події для запуску музики після першої взаємодії
-    const enableAudio = () => {
-        backgroundMusic.play().catch(err => console.log("Помилка відтворення музики:", err));
-        document.removeEventListener("touchend", enableAudio);
-        document.removeEventListener("click", enableAudio);
-    };
-
-    document.addEventListener("touchend", enableAudio, { once: true });
-    document.addEventListener("click", enableAudio, { once: true });
+ 
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    function unlockAudio() {
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        } 
+    }
+ 
+    document.addEventListener("touchstart", unlockAudio, { once: true });
+    document.addEventListener("click", unlockAudio, { once: true });
 
     document.addEventListener("touchstart", (e) => {
         if (swipeDisabled) return;

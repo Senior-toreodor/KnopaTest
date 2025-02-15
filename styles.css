@@ -41,7 +41,7 @@ html {
 }
 
 .title-container img {
-    width: 100%;
+    width: 75%;
     height: auto;
 }
 
@@ -354,29 +354,24 @@ html {
         font-size: clamp(16px, 4vw, 36px);
     }
 }
-
-
-/* Додаємо коректний блюр */
+ 
 #win-panel-container.active {
     backdrop-filter: blur(10px);
     background: rgba(0, 0, 0, 0.6);
 }
-
-/* Оновлюємо Win Panel, щоб вона була більшою і коректно відображала об'єкт */
+ 
 .win-panel {
     width: 50vw;
     max-width: 450px;
 }
-
-/* Виправляємо відображення найбільшої замерженої картинки */
+ 
 .win-item {
     width: 90%;
     max-width: 250px;
     display: block;
     margin: 10px auto;
 }
-
-/* Оновлення для монетного вибуху */
+ 
 #coins-container {
     position: fixed;
     top: 0;

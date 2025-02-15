@@ -7,7 +7,7 @@ export function updateThermometer() {
     const thermometerSections = document.querySelectorAll(".thermometer .section");
 
     if (currentSectionIndex === undefined) {
-        currentSectionIndex = thermometerSections.length - 1; // Ініціалізація при першому виклику
+        currentSectionIndex = thermometerSections.length - 1;  
     }
 
     if (currentSectionIndex >= 0) {
@@ -17,7 +17,7 @@ export function updateThermometer() {
 
     if (currentSectionIndex < 0) {
         setTimeout(() => {
-            showWinPanel(); // Викликаємо панель перемоги
+            showWinPanel(); 
         }, 500);
     }
 }
