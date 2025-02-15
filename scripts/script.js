@@ -1,5 +1,6 @@
 import { spawnChairs } from './spawner.js';
 import { move } from './movement.js';
+import { enableMusicOnInteraction, createMusicToggleButton } from './musicController.js';
 
 export let swipeDisabled = false;
 
@@ -10,19 +11,9 @@ export function disableSwipe() {
 document.addEventListener("DOMContentLoaded", () => {
     let startX = 0, startY = 0;
  
-    const backgroundMusic = new Audio("assets/Sounds/background.mp3");
-    backgroundMusic.loop = true;
-    backgroundMusic.volume = 0.5;
+    enableMusicOnInteraction();
  
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    function unlockAudio() {
-        if (audioContext.state === "suspended") {
-            audioContext.resume();
-        } 
-    }
- 
-    document.addEventListener("touchstart", unlockAudio, { once: true });
-    document.addEventListener("click", unlockAudio, { once: true });
+    createMusicToggleButton();
 
     document.addEventListener("touchstart", (e) => {
         if (swipeDisabled) return;

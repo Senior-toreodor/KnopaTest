@@ -1,10 +1,8 @@
 import { disableSwipe } from './script.js';
+import { playWinSound } from './musicController.js';
 
 let lastMergedImage = "assets/chair.png";  
 let lastMergedLink = "#";  
-
-const winSound = new Audio("assets/Sounds/win.mp3");  
-winSound.volume = 0.8;  
 
 export function setLastMergedImage(imageSrc) {
     lastMergedImage = imageSrc;
@@ -92,7 +90,7 @@ export function showWinPanel() {
     winPanelContainer.appendChild(winPanel);
     winPanelContainer.classList.add('active');
  
-    winSound.play();
+    playWinSound(); 
  
     explodeCoins();
     

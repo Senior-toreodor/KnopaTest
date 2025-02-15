@@ -1,9 +1,7 @@
 import { createImage, spawnNewChair } from "./spawner.js";
 import { updateThermometer } from "./thermometer.js";
 import { setLastMergedImage } from "./winPanel.js";
-
-const mergeSound = new Audio("assets/Sounds/merge.mp3");  
-mergeSound.volume = 1;  
+import { playMergeSound } from "./musicController.js";
 
 export function move(direction) {
     const boxes = document.querySelectorAll(".color-box");
@@ -14,10 +12,8 @@ export function move(direction) {
     else if (direction === "right") merged = moveRight(grid);
     else if (direction === "up") merged = moveUp(grid);
     else if (direction === "down") merged = moveDown(grid);
-
-    if (merged) {
-        mergeSound.play(); 
-    }
+    
+    playMergeSound();   
 
     updateGrid(grid, boxes);
     updateThermometer();
